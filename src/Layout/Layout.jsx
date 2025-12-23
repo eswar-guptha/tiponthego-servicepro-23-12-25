@@ -2,12 +2,38 @@ import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
-
 // Example sidebar menu config
 const MENU = [
-  { id: "tips-history", label: "Tips History" },
-];
+  { id: "tip-now-v1", label: "Tip Now V1" },
+  { id: "tip-now-v2", label: "Tip Now V2" },
+  { id: "tip-now-v3", label: "Tip Now V3" },
 
+  { id: "nearby-discovery-v1", label: "Nearby Discovery V1" },
+  { id: "nearby-discovery-v2", label: "Nearby Discovery V2" },
+  { id: "nearby-discovery-v3", label: "Nearby Discovery V3" },
+
+  { id: "tip-receipt-v1", label: "Tip Receipt V1" },
+
+  { id: "pro-mini-profile-v1", label: "Pro Mini Profile V1" },
+  { id: "pro-mini-profile-v2", label: "Pro Mini Profile V2" },
+
+  { id: "pro-full-profile-v1", label: "Pro Full Profile V1" },
+  { id: "pro-full-profile-v2", label: "Pro Full Profile V2" },
+
+  { id: "tip-confirmation-v1", label: "Tip Confirmation V1" },
+
+  { id: "tip-success-v1", label: "Tip Success V1" },
+
+  { id: "saved-pros-v1", label: "Saved Pros V1" },
+
+  { id: "pro-availability-v1", label: "Pro Availability V1" },
+
+  { id: "wallet-history-v1", label: "Wallet History V1" },
+
+  { id: "report-dispute-v1", label: "Report Dispute V1" },
+
+  { id: "case-status-v1", label: "Case Status V1" },
+];
 
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -30,10 +56,20 @@ export default function Layout() {
       {/* Sidebar */}
       <aside
         className={`fixed md:static top-0 left-0 h-full w-72 bg-white border-r border-slate-200 shadow-sm flex flex-col overflow-hidden transform transition-transform duration-300 z-30
-        ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
+        ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        }`}
       >
         <div className="p-6 border-b border-slate-200 flex-shrink-0 hidden md:flex">
-<p style={{fontSize: "20px", fontWeight: "bold", marginBottom: "0px"}}>Tip On the Go</p>
+          <p
+            style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              marginBottom: "0px",
+            }}
+          >
+            Tip On the Go
+          </p>
         </div>
 
         {/* Sidebar menu */}
