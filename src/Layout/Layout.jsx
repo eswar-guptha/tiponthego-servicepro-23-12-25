@@ -2,49 +2,106 @@ import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
-// Example sidebar menu config
 const MENU = [
-  { id: "tip-now-v1", label: "Tip Now V1" },
-  { id: "tip-now-v2", label: "Tip Now V2" },
-  { id: "tip-now-v3", label: "Tip Now V3" },
+  {
+    id: "customer-menu-v1",
+    label: "Customer Menu v1",
+    children: [
+      { id: "tip-now-v1", label: "Tip Now V1", path: "/tip-now-v1" },
+      { id: "tip-now-v2", label: "Tip Now V2", path: "/tip-now-v2" },
+      { id: "tip-now-v3", label: "Tip Now V3", path: "/tip-now-v3" },
 
-  { id: "nearby-discovery-v1", label: "Nearby Discovery V1" },
-  { id: "nearby-discovery-v2", label: "Nearby Discovery V2" },
-  { id: "nearby-discovery-v3", label: "Nearby Discovery V3" },
+      {
+        id: "nearby-discovery-v1",
+        label: "Nearby Discovery V1",
+        path: "/nearby-discovery-v1",
+      },
+      {
+        id: "nearby-discovery-v2",
+        label: "Nearby Discovery V2",
+        path: "/nearby-discovery-v2",
+      },
+      {
+        id: "nearby-discovery-v3",
+        label: "Nearby Discovery V3",
+        path: "/nearby-discovery-v3",
+      },
 
-  { id: "tip-receipt-v1", label: "Tip Receipt V1" },
+      {
+        id: "tip-receipt-v1",
+        label: "Tip Receipt V1",
+        path: "/tip-receipt-v1",
+      },
 
-  { id: "pro-mini-profile-v1", label: "Pro Mini Profile V1" },
-  { id: "pro-mini-profile-v2", label: "Pro Mini Profile V2" },
+      {
+        id: "pro-mini-profile-v1",
+        label: "Pro Mini Profile V1",
+        path: "/pro-mini-profile-v1",
+      },
+      {
+        id: "pro-mini-profile-v2",
+        label: "Pro Mini Profile V2",
+        path: "/pro-mini-profile-v2",
+      },
 
-  { id: "pro-full-profile-v1", label: "Pro Full Profile V1" },
-  { id: "pro-full-profile-v2", label: "Pro Full Profile V2" },
+      {
+        id: "pro-full-profile-v1",
+        label: "Pro Full Profile V1",
+        path: "/pro-full-profile-v1",
+      },
+      {
+        id: "pro-full-profile-v2",
+        label: "Pro Full Profile V2",
+        path: "/pro-full-profile-v2",
+      },
 
-  { id: "tip-confirmation-v1", label: "Tip Confirmation V1" },
-
-  { id: "tip-success-v1", label: "Tip Success V1" },
-
-  { id: "saved-pros-v1", label: "Saved Pros V1" },
-
-  { id: "pro-availability-v1", label: "Pro Availability V1" },
-
-  { id: "wallet-history-v1", label: "Wallet History V1" },
-
-  { id: "report-dispute-v1", label: "Report Dispute V1" },
-
-  { id: "case-status-v1", label: "Case Status V1" },
+      {
+        id: "tip-confirmation-v1",
+        label: "Tip Confirmation V1",
+        path: "/tip-confirmation-v1",
+      },
+      {
+        id: "tip-success-v1",
+        label: "Tip Success V1",
+        path: "/tip-success-v1",
+      },
+      { id: "saved-pros-v1", label: "Saved Pros V1", path: "/saved-pros-v1" },
+      {
+        id: "pro-availability-v1",
+        label: "Pro Availability V1",
+        path: "/pro-availability-v1",
+      },
+      {
+        id: "wallet-history-v1",
+        label: "Wallet History V1",
+        path: "/wallet-history-v1",
+      },
+      {
+        id: "report-dispute-v1",
+        label: "Report Dispute V1",
+        path: "/report-dispute-v1",
+      },
+      {
+        id: "case-status-v1",
+        label: "Case Status V1",
+        path: "/case-status-v1",
+      },
+    ],
+  },
 ];
 
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [open, setOpen] = useState(""); // for collapsible sections (if needed)
+  const [open, setOpen] = useState("servicepro-v1");
   const location = useLocation();
 
   return (
     <div className="flex h-screen bg-slate-50">
       {/* Mobile header */}
       <div className="md:hidden fixed top-0 left-0 right-0 bg-white border-b border-slate-200 flex items-center justify-between px-4 py-3 z-20 shadow-sm">
-        {/* <img src={BlackLogo} alt="Logo" className="w-[120px]" /> */}
+        <p className="text-base font-bold text-slate-900">
+          Tip On the Go (Cutomer Flow)
+        </p>
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
           className="text-slate-700 focus:outline-none"
@@ -61,32 +118,42 @@ export default function Layout() {
         }`}
       >
         <div className="p-6 border-b border-slate-200 flex-shrink-0 hidden md:flex">
-          <p
-            style={{
-              fontSize: "20px",
-              fontWeight: "bold",
-              marginBottom: "0px",
-            }}
-          >
-            Tip On the Go
-          </p>
+          <p className="text-xl font-bold m-0">Tip On the Go (Cutomer Flow)</p>
         </div>
 
-        {/* Sidebar menu */}
         <nav className="p-3 overflow-y-auto flex-1">
-          {MENU.map((m) => (
-            <div key={m.id} className="mb-1">
-              <Link
-                to={`/${m.id}`}
-                onClick={() => setSidebarOpen(false)} // close on mobile
-                className={`block px-3 py-2 text-sm font-medium rounded-lg hover:bg-slate-100 ${
-                  location.pathname === `/${m.id}`
-                    ? "bg-slate-100 font-semibold text-slate-900"
-                    : "text-slate-700"
-                }`}
+          {MENU.map((section) => (
+            <div key={section.id} className="mb-3">
+              <button
+                onClick={() => setOpen(open === section.id ? "" : section.id)}
+                className="w-full flex justify-between items-center px-3 py-2 rounded-lg text-sm font-semibold text-slate-900 hover:bg-slate-100"
               >
-                {m.label}
-              </Link>
+                {section.label}
+                <span>{open === section.id ? "−" : "+"}</span>
+              </button>
+
+              {open === section.id && (
+                <div className="ml-4 mt-2 space-y-1">
+                  {section.children.map((item) => {
+                    const isActive = location.pathname === item.path;
+
+                    return (
+                      <Link
+                        key={item.id}
+                        to={item.path}
+                        onClick={() => setSidebarOpen(false)}
+                        className={`block px-3 py-2 text-sm rounded-lg hover:bg-slate-100 transition-colors ${
+                          isActive
+                            ? "bg-slate-100 font-semibold text-slate-900"
+                            : "text-slate-700"
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           ))}
         </nav>
