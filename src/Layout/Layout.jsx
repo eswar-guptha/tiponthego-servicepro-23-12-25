@@ -112,7 +112,6 @@ const MENU = [
         label: "Shareable Receipt V2",
         path: "/shareable-receipt-v2",
       },
-
       {
         id: "case-status-timeline-v2",
         label: "Case Status Timeline V2",
@@ -133,7 +132,6 @@ const MENU = [
         label: "Refund Tracking V2",
         path: "/refund-tracking-v2",
       },
-
       {
         id: "notification-privacy-settings-v2",
         label: "Notification Privacy Settings V2",
@@ -154,7 +152,6 @@ const MENU = [
         label: "Notification Categories V2",
         path: "/notification-categories-v2",
       },
-
       {
         id: "permissions-manager-v2",
         label: "Permissions Manager V2",
@@ -180,7 +177,6 @@ const MENU = [
         label: "Notification Detail V2",
         path: "/notification-detail-v2",
       },
-
       {
         id: "profile-account-settings-v2",
         label: "Profile Account Settings V2",
@@ -191,7 +187,6 @@ const MENU = [
         label: "Security Devices V2",
         path: "/security-devices-v2",
       },
-
       {
         id: "tip-flow-router-v2",
         label: "Tip Flow Router V2",
