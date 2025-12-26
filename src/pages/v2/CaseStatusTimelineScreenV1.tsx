@@ -158,9 +158,7 @@ const DEMO_CASES: Case[] = [
     sla: "Resolved within 18h",
     refundAmount: 7.1,
     adjustmentNote: "Tip canceled and refunded.",
-    attachments: [
-      { id: "b1", name: "screenshot_1.png", type: "image", sizeKb: 512 },
-    ],
+    attachments: [{ id: "b1", name: "screenshot_1.png", type: "image", sizeKb: 512 }],
     timeline: [
       {
         id: "f1",
@@ -217,14 +215,12 @@ if (typeof process !== "undefined" && process.env?.NODE_ENV !== "production") {
   runDevChecks();
 }
 
-export default function CaseStatusScreen() {
+export default function CaseStatusTimelineX43V1() {
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<"All" | CaseStatus>("All");
   const [activeId, setActiveId] = useState(DEMO_CASES[0].id);
 
-  const [sheet, setSheet] = useState<
-    null | "filters" | "addEvidence" | "message" | "close"
-  >(null);
+  const [sheet, setSheet] = useState<null | "filters" | "addEvidence" | "message" | "close">(null);
   const [sheetMounted, setSheetMounted] = useState(false);
 
   const [toast, setToast] = useState<string | null>(null);
@@ -256,14 +252,10 @@ export default function CaseStatusScreen() {
   }, [sheet]);
 
   useEffect(() => {
-    const el: any = pageRef.current;
+    const el = pageRef.current;
     if (!el) return;
 
-    function compute(
-      scrollTop: number,
-      scrollHeight: number,
-      clientHeight: number
-    ) {
+    function compute(scrollTop: number, scrollHeight: number, clientHeight: number) {
       const maxScroll = Math.max(1, scrollHeight - clientHeight);
       const progress = clamp01(scrollTop / maxScroll);
       const size = clamp01(clientHeight / Math.max(scrollHeight, 1));
@@ -294,8 +286,7 @@ export default function CaseStatusScreen() {
         c.receiptNo.toLowerCase().includes(q) ||
         c.proName.toLowerCase().includes(q) ||
         c.category.toLowerCase().includes(q);
-      const matchesStatus =
-        statusFilter === "All" ? true : c.status === statusFilter;
+      const matchesStatus = statusFilter === "All" ? true : c.status === statusFilter;
       return matchesQ && matchesStatus;
     });
   }, [query, statusFilter]);
@@ -322,10 +313,7 @@ export default function CaseStatusScreen() {
   function addAttachment(kind: "image" | "pdf") {
     const a: Attachment = {
       id: uid(),
-      name:
-        kind === "image"
-          ? `evidence_${newAttachments.length + 1}.png`
-          : `evidence_${newAttachments.length + 1}.pdf`,
+      name: kind === "image" ? `evidence_${newAttachments.length + 1}.png` : `evidence_${newAttachments.length + 1}.pdf`,
       type: kind,
       sizeKb: kind === "image" ? 580 : 240,
     };
@@ -378,12 +366,7 @@ export default function CaseStatusScreen() {
   }, [active.status]);
 
   const progress = useMemo(() => {
-    const order: CaseStatus[] = [
-      "Submitted",
-      "Under review",
-      "Need info",
-      "Resolved",
-    ];
+    const order: CaseStatus[] = ["Submitted", "Under review", "Need info", "Resolved"];
     const idx = order.indexOf(active.status);
     return Math.max(0, idx) / (order.length - 1);
   }, [active.status]);
@@ -414,10 +397,7 @@ export default function CaseStatusScreen() {
       </div>
 
       <div className="relative">
-        <div
-          ref={pageRef}
-          className="max-w-md mx-auto px-4 pb-28 pt-4 h-[calc(100vh-64px)] overflow-y-auto pr-5"
-        >
+        <div ref={pageRef} className="max-w-md mx-auto px-4 pb-28 pt-4 h-[calc(100vh-64px)] overflow-y-auto pr-5">
           {/* Header */}
           <div className="bg-white/15 border border-white/20 rounded-3xl p-4">
             <div className="text-white">
@@ -455,9 +435,7 @@ export default function CaseStatusScreen() {
                 onClick={() => setToast("Tap a case in the list below")}
                 className="w-full rounded-2xl bg-white/10 border border-white/15 text-white px-3 py-3 flex items-center justify-between"
               >
-                <span className="text-sm font-semibold">
-                  Active: {active.id} · #{active.receiptNo}
-                </span>
+                <span className="text-sm font-semibold">Active: {active.id} · #{active.receiptNo}</span>
                 <ChevronDown className="w-4 h-4" />
               </button>
             </div>
@@ -467,19 +445,14 @@ export default function CaseStatusScreen() {
               <StatusBadge status={active.status} />
               <div className="text-white/85 text-sm inline-flex items-center gap-2">
                 <Clock className="w-4 h-4" />
-                <span>
-                  Updated: {active.timeline[active.timeline.length - 1]?.at}
-                </span>
+                <span>Updated: {active.timeline[active.timeline.length - 1]?.at}</span>
               </div>
             </div>
 
             {/* Progress bar */}
             <div className="mt-3">
               <div className="h-2 rounded-full bg-white/20 overflow-hidden">
-                <div
-                  className="h-full bg-white rounded-full"
-                  style={{ width: `${Math.round(progress * 100)}%` }}
-                />
+                <div className="h-full bg-white rounded-full" style={{ width: `${Math.round(progress * 100)}%` }} />
               </div>
               <div className="mt-2 grid grid-cols-4 text-[11px] text-white/80">
                 <span>Submitted</span>
@@ -494,9 +467,7 @@ export default function CaseStatusScreen() {
           <div className="mt-3 bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
               <div className="font-semibold">Your cases</div>
-              <div className="text-xs text-gray-500">
-                {filtered.length} shown
-              </div>
+              <div className="text-xs text-gray-500">{filtered.length} shown</div>
             </div>
             <div className="p-3 space-y-2">
               {filtered.map((c) => (
@@ -507,34 +478,22 @@ export default function CaseStatusScreen() {
                     setToast(`Opened ${c.id}`);
                   }}
                   className={`w-full text-left rounded-3xl border p-3 transition ${
-                    c.id === active.id
-                      ? "bg-blue-50 border-blue-200"
-                      : "bg-gray-50 border-gray-100 hover:bg-gray-100"
+                    c.id === active.id ? "bg-blue-50 border-blue-200" : "bg-gray-50 border-gray-100 hover:bg-gray-100"
                   }`}
                 >
                   <div className="flex items-start gap-3">
-                    <img
-                      src={c.proImage}
-                      alt={c.proName}
-                      className="w-12 h-12 rounded-2xl object-cover"
-                    />
+                    <img src={c.proImage} alt={c.proName} className="w-12 h-12 rounded-2xl object-cover" />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0">
                           <div className="font-semibold truncate">{c.id}</div>
-                          <div className="text-sm text-gray-500 truncate">
-                            #{c.receiptNo} · {c.proName}
-                          </div>
+                          <div className="text-sm text-gray-500 truncate">#{c.receiptNo} · {c.proName}</div>
                         </div>
-                        <span className="text-xs font-semibold">
-                          {money(c.refundAmount ?? 0)}
-                        </span>
+                        <span className="text-xs font-semibold">{money(c.refundAmount ?? 0)}</span>
                       </div>
                       <div className="mt-2 flex items-center justify-between">
                         <StatusPillMini status={c.status} />
-                        <div className="text-xs text-gray-500">
-                          {c.timeline[c.timeline.length - 1]?.at}
-                        </div>
+                        <div className="text-xs text-gray-500">{c.timeline[c.timeline.length - 1]?.at}</div>
                       </div>
                     </div>
                   </div>
@@ -546,75 +505,39 @@ export default function CaseStatusScreen() {
           {/* Case summary */}
           <div className="mt-3 bg-white rounded-3xl shadow-sm border border-gray-100 p-4">
             <div className="flex items-start gap-3">
-              <img
-                src={active.proImage}
-                alt={active.proName}
-                className="w-14 h-14 rounded-2xl object-cover"
-              />
+              <img src={active.proImage} alt={active.proName} className="w-14 h-14 rounded-2xl object-cover" />
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                  <div className="font-semibold text-lg truncate">
-                    {active.proName}
-                  </div>
+                  <div className="font-semibold text-lg truncate">{active.proName}</div>
                   <span className="text-xs bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full inline-flex items-center gap-1">
                     <BadgeCheck className="w-3.5 h-3.5" /> Receipt
                   </span>
                 </div>
-                <div className="text-sm text-gray-500 truncate">
-                  {active.proRole} · {active.createdAt}
-                </div>
+                <div className="text-sm text-gray-500 truncate">{active.proRole} · {active.createdAt}</div>
                 <div className="mt-2 flex gap-2 flex-wrap">
-                  <span className="text-xs bg-gray-50 text-gray-700 px-2.5 py-1 rounded-full border border-gray-100">
-                    {active.category}
-                  </span>
-                  <span className="text-xs bg-gray-50 text-gray-700 px-2.5 py-1 rounded-full border border-gray-100">
-                    Severity {active.severity}
-                  </span>
-                  <span className="text-xs bg-gray-50 text-gray-700 px-2.5 py-1 rounded-full border border-gray-100">
-                    Contact {active.contact}
-                  </span>
+                  <span className="text-xs bg-gray-50 text-gray-700 px-2.5 py-1 rounded-full border border-gray-100">{active.category}</span>
+                  <span className="text-xs bg-gray-50 text-gray-700 px-2.5 py-1 rounded-full border border-gray-100">Severity {active.severity}</span>
+                  <span className="text-xs bg-gray-50 text-gray-700 px-2.5 py-1 rounded-full border border-gray-100">Contact {active.contact}</span>
                 </div>
               </div>
             </div>
 
             {/* Resolution box */}
-            <div
-              className={`mt-4 rounded-3xl border p-4 ${
-                statusTone === "emerald"
-                  ? "bg-emerald-50 border-emerald-100"
-                  : statusTone === "amber"
-                  ? "bg-amber-50 border-amber-100"
-                  : "bg-blue-50 border-blue-100"
-              }`}
-            >
+            <div className={`mt-4 rounded-3xl border p-4 ${statusTone === "emerald" ? "bg-emerald-50 border-emerald-100" : statusTone === "amber" ? "bg-amber-50 border-amber-100" : "bg-blue-50 border-blue-100"}`}>
               <div className="flex items-start gap-3">
                 <div className="w-11 h-11 rounded-2xl bg-white border border-gray-200 flex items-center justify-center">
-                  {active.status === "Resolved" ? (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                  ) : (
-                    <Info className="w-5 h-5 text-blue-700" />
-                  )}
+                  {active.status === "Resolved" ? <CheckCircle2 className="w-5 h-5 text-emerald-600" /> : <Info className="w-5 h-5 text-blue-700" />}
                 </div>
                 <div>
-                  <div className="font-semibold">
-                    {active.status === "Resolved" ? "Resolved" : active.status}
-                  </div>
-                  <div className="text-sm text-gray-700 mt-0.5">
-                    {active.adjustmentNote ?? "We’re reviewing your case."}
-                  </div>
+                  <div className="font-semibold">{active.status === "Resolved" ? "Resolved" : active.status}</div>
+                  <div className="text-sm text-gray-700 mt-0.5">{active.adjustmentNote ?? "We’re reviewing your case."}</div>
                   {typeof active.refundAmount === "number" && (
                     <div className="mt-2 text-sm">
-                      <span className="text-gray-500">Refund:</span>{" "}
-                      <span className="font-semibold">
-                        {money(active.refundAmount)}
-                      </span>
+                      <span className="text-gray-500">Refund:</span> <span className="font-semibold">{money(active.refundAmount)}</span>
                       <span className="text-gray-500"> · USD</span>
                     </div>
                   )}
-                  <div className="mt-2 text-xs text-gray-600">
-                    Keep this ticket for reference. Payment method details are
-                    never shared.
-                  </div>
+                  <div className="mt-2 text-xs text-gray-600">Keep this ticket for reference. Payment method details are never shared.</div>
                 </div>
               </div>
             </div>
@@ -658,19 +581,13 @@ export default function CaseStatusScreen() {
           <div className="mt-3 bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
               <div className="font-semibold">Timeline</div>
-              <div className="text-xs text-gray-500">
-                {active.timeline.length} events
-              </div>
+              <div className="text-xs text-gray-500">{active.timeline.length} events</div>
             </div>
 
             <div className="p-4">
               <div className="space-y-4">
                 {active.timeline.map((e, idx) => (
-                  <TimelineRow
-                    key={e.id}
-                    item={e}
-                    last={idx === active.timeline.length - 1}
-                  />
+                  <TimelineRow key={e.id} item={e} last={idx === active.timeline.length - 1} />
                 ))}
               </div>
             </div>
@@ -681,13 +598,7 @@ export default function CaseStatusScreen() {
 
         {/* Right-side scroll indicator */}
         <div className="pointer-events-none absolute top-3 bottom-3 right-3 w-[6px] rounded-full bg-white/20">
-          <div
-            className="absolute left-0 right-0 rounded-full bg-blue-600"
-            style={{
-              height: `${thumb.size * 100}%`,
-              top: `${thumb.top * 100}%`,
-            }}
-          />
+          <div className="absolute left-0 right-0 rounded-full bg-blue-600" style={{ height: `${thumb.size * 100}%`, top: `${thumb.top * 100}%` }} />
         </div>
       </div>
 
@@ -697,9 +608,7 @@ export default function CaseStatusScreen() {
           <div className="bg-white/15 border border-white/20 rounded-3xl p-3 flex items-center justify-between">
             <div className="text-white">
               <div className="text-sm font-semibold">Tip protection</div>
-              <div className="text-xs text-white/75">
-                We keep receipts and cases auditable.
-              </div>
+              <div className="text-xs text-white/75">We keep receipts and cases auditable.</div>
             </div>
             <button
               onClick={() => setToast("Open FAQ (mock)")}
@@ -713,11 +622,7 @@ export default function CaseStatusScreen() {
 
       {/* Sheets */}
       {sheet && (
-        <Sheet
-          title={sheetTitle(sheet)}
-          onClose={closeSheet}
-          mounted={sheetMounted}
-        >
+        <Sheet title={sheetTitle(sheet)} onClose={closeSheet} mounted={sheetMounted}>
           {sheet === "filters" && (
             <FiltersPanel
               status={statusFilter}
@@ -771,15 +676,11 @@ export default function CaseStatusScreen() {
       {/* Toast */}
       <div
         className={`fixed left-1/2 -translate-x-1/2 bottom-24 z-[70] transition-all duration-200 ${
-          toast
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-2 pointer-events-none"
+          toast ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
         }`}
         aria-live="polite"
       >
-        <div className="px-4 py-2 rounded-full bg-black/75 text-white text-sm shadow-lg">
-          {toast ?? ""}
-        </div>
+        <div className="px-4 py-2 rounded-full bg-black/75 text-white text-sm shadow-lg">{toast ?? ""}</div>
       </div>
     </div>
   );
@@ -793,67 +694,23 @@ function sheetTitle(s: "filters" | "addEvidence" | "message" | "close") {
 }
 
 function StatusBadge({ status }: { status: CaseStatus }) {
-  const base =
-    "text-xs px-3 py-1.5 rounded-full border font-semibold inline-flex items-center gap-2";
-  if (status === "Resolved")
-    return (
-      <span
-        className={`${base} bg-emerald-50 border-emerald-100 text-emerald-800`}
-      >
-        <CheckCircle2 className="w-4 h-4" /> Resolved
-      </span>
-    );
-  if (status === "Need info")
-    return (
-      <span className={`${base} bg-amber-50 border-amber-100 text-amber-800`}>
-        <Info className="w-4 h-4" /> Need info
-      </span>
-    );
-  if (status === "Under review")
-    return (
-      <span className={`${base} bg-blue-50 border-blue-100 text-blue-800`}>
-        <Shield className="w-4 h-4" /> Under review
-      </span>
-    );
-  return (
-    <span className={`${base} bg-gray-50 border-gray-200 text-gray-700`}>
-      <Clock className="w-4 h-4" /> Submitted
-    </span>
-  );
+  const base = "text-xs px-3 py-1.5 rounded-full border font-semibold inline-flex items-center gap-2";
+  if (status === "Resolved") return <span className={`${base} bg-emerald-50 border-emerald-100 text-emerald-800`}><CheckCircle2 className="w-4 h-4" /> Resolved</span>;
+  if (status === "Need info") return <span className={`${base} bg-amber-50 border-amber-100 text-amber-800`}><Info className="w-4 h-4" /> Need info</span>;
+  if (status === "Under review") return <span className={`${base} bg-blue-50 border-blue-100 text-blue-800`}><Shield className="w-4 h-4" /> Under review</span>;
+  return <span className={`${base} bg-gray-50 border-gray-200 text-gray-700`}><Clock className="w-4 h-4" /> Submitted</span>;
 }
 
 function StatusPillMini({ status }: { status: CaseStatus }) {
   const base = "text-xs px-2.5 py-1 rounded-full border font-semibold";
-  if (status === "Resolved")
-    return (
-      <span
-        className={`${base} bg-emerald-50 border-emerald-100 text-emerald-800`}
-      >
-        Resolved
-      </span>
-    );
-  if (status === "Need info")
-    return (
-      <span className={`${base} bg-amber-50 border-amber-100 text-amber-800`}>
-        Need info
-      </span>
-    );
-  if (status === "Under review")
-    return (
-      <span className={`${base} bg-blue-50 border-blue-100 text-blue-800`}>
-        Review
-      </span>
-    );
-  return (
-    <span className={`${base} bg-gray-50 border-gray-200 text-gray-700`}>
-      Submitted
-    </span>
-  );
+  if (status === "Resolved") return <span className={`${base} bg-emerald-50 border-emerald-100 text-emerald-800`}>Resolved</span>;
+  if (status === "Need info") return <span className={`${base} bg-amber-50 border-amber-100 text-amber-800`}>Need info</span>;
+  if (status === "Under review") return <span className={`${base} bg-blue-50 border-blue-100 text-blue-800`}>Review</span>;
+  return <span className={`${base} bg-gray-50 border-gray-200 text-gray-700`}>Submitted</span>;
 }
 
 function TimelineRow({ item, last }: { item: TimelineItem; last: boolean }) {
-  const tone =
-    item.by === "Support" ? "blue" : item.by === "You" ? "gray" : "emerald";
+  const tone = item.by === "Support" ? "blue" : item.by === "You" ? "gray" : "emerald";
   const dot =
     tone === "emerald"
       ? "bg-emerald-600"
@@ -915,30 +772,20 @@ function FiltersPanel({
   onClear: () => void;
   onApply: () => void;
 }) {
-  const statuses: Array<"All" | CaseStatus> = [
-    "All",
-    "Submitted",
-    "Under review",
-    "Need info",
-    "Resolved",
-  ];
+  const statuses: Array<"All" | CaseStatus> = ["All", "Submitted", "Under review", "Need info", "Resolved"];
 
   return (
     <div className="space-y-4">
       <div>
         <div className="font-semibold">Status</div>
-        <div className="text-sm text-gray-500 mt-1">
-          Filter your cases by state.
-        </div>
+        <div className="text-sm text-gray-500 mt-1">Filter your cases by state.</div>
         <div className="mt-2 grid grid-cols-2 gap-2">
           {statuses.map((s) => (
             <button
               key={s}
               onClick={() => onSetStatus(s)}
               className={`h-12 rounded-2xl border font-semibold transition ${
-                status === s
-                  ? "bg-blue-600 border-blue-600 text-white"
-                  : "bg-white border-gray-200 hover:bg-gray-50"
+                status === s ? "bg-blue-600 border-blue-600 text-white" : "bg-white border-gray-200 hover:bg-gray-50"
               }`}
             >
               {s}
@@ -948,16 +795,10 @@ function FiltersPanel({
       </div>
 
       <div className="grid grid-cols-2 gap-2">
-        <button
-          onClick={onClear}
-          className="h-12 rounded-2xl bg-white border border-gray-200 font-semibold hover:bg-gray-50"
-        >
+        <button onClick={onClear} className="h-12 rounded-2xl bg-white border border-gray-200 font-semibold hover:bg-gray-50">
           Clear
         </button>
-        <button
-          onClick={onApply}
-          className="h-12 rounded-2xl text-white font-semibold bg-gradient-to-r from-blue-600 to-green-500"
-        >
+        <button onClick={onApply} className="h-12 rounded-2xl text-white font-semibold bg-gradient-to-r from-blue-600 to-green-500">
           Apply
         </button>
       </div>
@@ -987,24 +828,18 @@ function AddEvidencePanel({
     <div className="space-y-3">
       <div className="rounded-3xl border border-gray-100 bg-gray-50 p-4">
         <div className="font-semibold">Existing evidence</div>
-        <div className="text-sm text-gray-500 mt-1">
-          Already attached to this case.
-        </div>
+        <div className="text-sm text-gray-500 mt-1">Already attached to this case.</div>
         <div className="mt-3 space-y-2">
           {existing.map((a) => (
             <AttachmentRow key={a.id} a={a} readOnly />
           ))}
-          {existing.length === 0 && (
-            <div className="text-sm text-gray-500">None yet</div>
-          )}
+          {existing.length === 0 && <div className="text-sm text-gray-500">None yet</div>}
         </div>
       </div>
 
       <div className="rounded-3xl border border-gray-100 p-4">
         <div className="font-semibold">Add new evidence</div>
-        <div className="text-sm text-gray-500 mt-1">
-          Upload screenshots or statements.
-        </div>
+        <div className="text-sm text-gray-500 mt-1">Upload screenshots or statements.</div>
         <div className="mt-3 grid grid-cols-2 gap-2">
           <button
             onClick={() => onAdd("image")}
@@ -1037,9 +872,7 @@ function AddEvidencePanel({
 
         <div className="mt-3 text-xs text-gray-500 flex items-start gap-2">
           <Shield className="w-4 h-4 mt-0.5" />
-          <span>
-            Evidence is encrypted and used only for resolving this ticket.
-          </span>
+          <span>Evidence is encrypted and used only for resolving this ticket.</span>
         </div>
       </div>
     </div>
@@ -1059,11 +892,7 @@ function AttachmentRow({
     <div className="rounded-2xl border border-gray-100 bg-gray-50 p-3 flex items-center justify-between">
       <div className="flex items-center gap-2">
         <div className="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center">
-          {a.type === "image" ? (
-            <Upload className="w-4 h-4" />
-          ) : (
-            <FileText className="w-4 h-4" />
-          )}
+          {a.type === "image" ? <Upload className="w-4 h-4" /> : <FileText className="w-4 h-4" />}
         </div>
         <div>
           <div className="font-semibold text-sm">{a.name}</div>
@@ -1108,58 +937,31 @@ function MessagePanel({
     <div className="space-y-4">
       <div className="rounded-3xl border border-gray-100 bg-gray-50 p-4">
         <div className="font-semibold">Contact method</div>
-        <div className="text-sm text-gray-500 mt-1">
-          Choose how support should respond.
-        </div>
+        <div className="text-sm text-gray-500 mt-1">Choose how support should respond.</div>
         <div className="mt-3 grid grid-cols-3 gap-2">
-          <ContactBtn
-            active={channel === "In-app"}
-            icon={<MessageSquare className="w-4 h-4" />}
-            label="In-app"
-            onClick={() => setChannel("In-app")}
-          />
-          <ContactBtn
-            active={channel === "Email"}
-            icon={<Mail className="w-4 h-4" />}
-            label="Email"
-            onClick={() => setChannel("Email")}
-          />
-          <ContactBtn
-            active={channel === "Phone"}
-            icon={<Phone className="w-4 h-4" />}
-            label="Phone"
-            onClick={() => setChannel("Phone")}
-          />
+          <ContactBtn active={channel === "In-app"} icon={<MessageSquare className="w-4 h-4" />} label="In-app" onClick={() => setChannel("In-app")} />
+          <ContactBtn active={channel === "Email"} icon={<Mail className="w-4 h-4" />} label="Email" onClick={() => setChannel("Email")} />
+          <ContactBtn active={channel === "Phone"} icon={<Phone className="w-4 h-4" />} label="Phone" onClick={() => setChannel("Phone")} />
         </div>
 
         {channel === "Email" && (
           <label className="mt-3 block rounded-3xl border border-gray-200 bg-white p-4">
             <div className="text-xs text-gray-500">Email</div>
-            <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 w-full outline-none font-semibold"
-            />
+            <input value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full outline-none font-semibold" />
           </label>
         )}
 
         {channel === "Phone" && (
           <label className="mt-3 block rounded-3xl border border-gray-200 bg-white p-4">
             <div className="text-xs text-gray-500">Phone</div>
-            <input
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="mt-1 w-full outline-none font-semibold"
-            />
+            <input value={phone} onChange={(e) => setPhone(e.target.value)} className="mt-1 w-full outline-none font-semibold" />
           </label>
         )}
       </div>
 
       <div className="rounded-3xl border border-gray-100 p-4">
         <div className="font-semibold">Message</div>
-        <div className="text-sm text-gray-500 mt-1">
-          Add new information or answer support questions.
-        </div>
+        <div className="text-sm text-gray-500 mt-1">Add new information or answer support questions.</div>
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -1182,15 +984,7 @@ function MessagePanel({
   );
 }
 
-function ClosePanel({
-  status,
-  onCloseCase,
-  onKeep,
-}: {
-  status: CaseStatus;
-  onCloseCase: () => void;
-  onKeep: () => void;
-}) {
+function ClosePanel({ status, onCloseCase, onKeep }: { status: CaseStatus; onCloseCase: () => void; onKeep: () => void }) {
   return (
     <div className="space-y-3">
       <div className="rounded-3xl border border-gray-100 bg-gray-50 p-4">
@@ -1202,16 +996,10 @@ function ClosePanel({
         </div>
       </div>
       <div className="grid grid-cols-2 gap-2">
-        <button
-          onClick={onKeep}
-          className="h-12 rounded-2xl bg-white border border-gray-200 font-semibold hover:bg-gray-50"
-        >
+        <button onClick={onKeep} className="h-12 rounded-2xl bg-white border border-gray-200 font-semibold hover:bg-gray-50">
           Keep open
         </button>
-        <button
-          onClick={onCloseCase}
-          className="h-12 rounded-2xl text-white font-semibold bg-gray-900"
-        >
+        <button onClick={onCloseCase} className="h-12 rounded-2xl text-white font-semibold bg-gray-900">
           Close case
         </button>
       </div>
@@ -1238,9 +1026,7 @@ function ContactBtn({
     <button
       onClick={onClick}
       className={`h-11 rounded-2xl border font-semibold inline-flex items-center justify-center gap-2 transition ${
-        active
-          ? "bg-blue-600 border-blue-600 text-white"
-          : "bg-white border-gray-200 hover:bg-gray-50"
+        active ? "bg-blue-600 border-blue-600 text-white" : "bg-white border-gray-200 hover:bg-gray-50"
       }`}
     >
       {icon}
@@ -1267,11 +1053,7 @@ function Sheet({
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center">
-      <button
-        className="absolute inset-0 bg-black/40"
-        onClick={close}
-        aria-label="Close overlay"
-      />
+      <button className="absolute inset-0 bg-black/40" onClick={close} aria-label="Close overlay" />
       <div
         className={`relative w-full max-w-md bg-white rounded-t-3xl shadow-2xl overflow-hidden transition-transform duration-200 ${
           mounted ? "translate-y-0" : "translate-y-[520px]"

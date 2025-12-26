@@ -88,6 +88,127 @@ const MENU = [
       },
     ],
   },
+  {
+    id: "customer-menu-v2",
+    label: "Customer Menu v2",
+    children: [
+      {
+        id: "tip-confirm-pay-v2",
+        label: "Tip Confirm Pay V2",
+        path: "/tip-confirm-pay-v2",
+      },
+      {
+        id: "tip-reminder-v2",
+        label: "Tip Reminder V2",
+        path: "/tip-reminder-v2",
+      },
+      {
+        id: "wallet-tip-history-v2",
+        label: "Wallet Tip History V2",
+        path: "/wallet-tip-history-v2",
+      },
+      {
+        id: "shareable-receipt-v2",
+        label: "Shareable Receipt V2",
+        path: "/shareable-receipt-v2",
+      },
+
+      {
+        id: "case-status-timeline-v2",
+        label: "Case Status Timeline V2",
+        path: "/case-status-timeline-v2",
+      },
+      {
+        id: "case-status-timeline-v1",
+        label: "Case Status Timeline V1",
+        path: "/case-status-timeline-v1",
+      },
+      {
+        id: "case-chat-v2",
+        label: "Case Chat V2",
+        path: "/case-chat-v2",
+      },
+      {
+        id: "refund-tracking-v2",
+        label: "Refund Tracking V2",
+        path: "/refund-tracking-v2",
+      },
+
+      {
+        id: "notification-privacy-settings-v2",
+        label: "Notification Privacy Settings V2",
+        path: "/notification-privacy-settings-v2",
+      },
+      {
+        id: "location-consent-v2",
+        label: "Location Consent V2",
+        path: "/location-consent-v2",
+      },
+      {
+        id: "notification-soft-prompt-v2",
+        label: "Notification Soft Prompt V2",
+        path: "/notification-soft-prompt-v2",
+      },
+      {
+        id: "notification-categories-v2",
+        label: "Notification Categories V2",
+        path: "/notification-categories-v2",
+      },
+
+      {
+        id: "permissions-manager-v2",
+        label: "Permissions Manager V2",
+        path: "/permissions-manager-v2",
+      },
+      {
+        id: "quiet-hours-tip-rules-v2",
+        label: "Quiet Hours Tip Rules V2",
+        path: "/quiet-hours-tip-rules-v2",
+      },
+      {
+        id: "per-venue-rules-v2",
+        label: "Per Venue Rules V2",
+        path: "/per-venue-rules-v2",
+      },
+      {
+        id: "notification-inbox-v2",
+        label: "Notification Inbox V2",
+        path: "/notification-inbox-v2",
+      },
+      {
+        id: "notification-detail-v2",
+        label: "Notification Detail V2",
+        path: "/notification-detail-v2",
+      },
+
+      {
+        id: "profile-account-settings-v2",
+        label: "Profile Account Settings V2",
+        path: "/profile-account-settings-v2",
+      },
+      {
+        id: "security-devices-v2",
+        label: "Security Devices V2",
+        path: "/security-devices-v2",
+      },
+
+      {
+        id: "tip-flow-router-v2",
+        label: "Tip Flow Router V2",
+        path: "/tip-flow-router-v2",
+      },
+      {
+        id: "tip-amount-selection-v2",
+        label: "Tip Amount Selection V2",
+        path: "/tip-amount-selection-v2",
+      },
+      {
+        id: "tip-message-privacy-v2",
+        label: "Tip Message Privacy V2",
+        path: "/tip-message-privacy-v2",
+      },
+    ],
+  },
 ];
 
 export default function Layout() {
